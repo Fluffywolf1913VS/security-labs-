@@ -1,0 +1,7 @@
+alert icmp any any -> any any (msg:"Possible ScanPing Nmap"; dsize:0; sid:10000001;)
+
+alert tcp any any -> 10.50.10.100 any (msg:"Scan TCP"; detection_filter:track by_src, count 30, seconds 60; sid:10000011;)
+
+alert icmp 10.50.10.101 any -> 10.50.10.100 any (msg:"Ping Linux"; content:"01234567"; offset:40; sid:10000012; rev:1;)
+
+alert icmp 10.50.10.100 any -> 10.50.10.101 any (msg:"Ping Windows"; content:"abcdefghijklmnop"; depth:16; sid:10000013; rev:1;)
